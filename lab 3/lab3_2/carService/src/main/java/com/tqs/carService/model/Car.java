@@ -5,13 +5,14 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
 @Entity
 public class Car {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long carId;
     
     private String maker, model;
@@ -64,6 +65,17 @@ public class Car {
     public int hashCode() {
         return Objects.hash(carId, maker, model);
     }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " carId='" + getCarId() + "'" +
+            ", maker='" + getMaker() + "'" +
+            ", model='" + getModel() + "'" +
+            "}";
+    }
+
 
 
 
