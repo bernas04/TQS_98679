@@ -21,7 +21,14 @@ Mockito.when(employeeRepository.findById(-99L)).thenReturn(Optional.empty());
 ```
 
 ## What is the difference between standard @Mock and @MockBean?
+A anotação ***@Mock*** é usada com *Junit* e *Mockito* e permite realizar testes sem a implementação final de uma dependência (p.e. de uma dada função).
+Por outro lado,***@MockBean*** é usado para permitir adicionar objetos *mock* ao *SpringBoot*, permitindo a realização de testes de integração.
 
 ## What is the role of the file “application-integrationtest.properties”? In which conditions will it be used?
+O ficheiro `application-integrationtest.properties` tem configurações utilizadas pelo *SpringBoot*, como por exemplo, as de ligação à base de dados.
+Quando estão a ser feitos os testes de integração, é usado esse ficheiro (que tem as credenciais da BD) através da notação ```@TestPropertySource```
 
-## The sampleproject demonstratesthree test strategies to assess anAPI (C, D and E)developedwith SpringBoot.Which are the main/keydifferences?
+## The sampleproject demonstrates three test strategies to access an API (C, D and E) developed with SpringBoot. Which are the main/key differences?
+* Na estratégia **C**, o objetivo é testar os *Controllers* usando *mocks*, por isso os pedidos são feitos através de uma instância da classe MockMVC.
+* Na estratégia **D**, o objetivo é usar todos os componentes, bem como ter uma base de dados, embora ainda seja usada uma instância da classe *MockMVC* para simular os pedidos e respostas **HTTP**
+* Na estratégia **E**, são usados todos os componentes e uma base de dados. Neste caso são usados pedidos *HTTP client* reais através da classe TestRestTemplate.
