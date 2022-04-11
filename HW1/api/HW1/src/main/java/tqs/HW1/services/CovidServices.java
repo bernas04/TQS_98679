@@ -15,13 +15,20 @@ import org.springframework.stereotype.Service;
 import tqs.HW1.model.CountryData;
 import tqs.HW1.model.Regions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @Service
 public class CovidServices {
     private final String URI_API = "https://covid-19-statistics.p.rapidapi.com";
     private final String API_HOST = "covid-19-statistics.p.rapidapi.com";
     private final String API_KEY = "110558e39emshd191bd4c6012a68p161673jsnffbcc68d9b98";
+    
+    private static final Logger log = LoggerFactory.getLogger(CovidServices.class);
 
     public List<Regions> getAllRegions() throws IOException, InterruptedException{
+        log.info("> Get all Countries and ISO Codes.");
         HttpRequest request = HttpRequest.newBuilder()
 		.uri(URI.create(URI_API + "/regions"))
 		.header("X-RapidAPI-Host", API_HOST)
@@ -42,6 +49,7 @@ public class CovidServices {
     }
 
     public CountryData getInformationByIso(String iso) throws IOException, InterruptedException{
+        log.info("> Getting "+iso+" data.");
         String date="", last_update="";
         long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
         double fatality_rate=0.000;
@@ -74,6 +82,7 @@ public class CovidServices {
     }
 
     public CountryData getWorldInformation() throws IOException, InterruptedException{
+        log.info("> Get world data.");
         String date="", last_update="";
         long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
         double fatality_rate=0.000;
