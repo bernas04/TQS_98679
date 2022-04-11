@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import tqs.HW1.model.CountryData;
@@ -21,9 +22,15 @@ import org.slf4j.LoggerFactory;
 
 @Service
 public class CovidServices {
-    private final String URI_API = "https://covid-19-statistics.p.rapidapi.com";
-    private final String API_HOST = "covid-19-statistics.p.rapidapi.com";
-    private final String API_KEY = "110558e39emshd191bd4c6012a68p161673jsnffbcc68d9b98";
+
+    @Value("${api.host}")
+    private String API_HOST;
+
+    @Value("${api.url}")
+    private String URI_API;
+    
+    @Value("${api.key}")
+    private String API_KEY;
     
     private static final Logger log = LoggerFactory.getLogger(CovidServices.class);
 
