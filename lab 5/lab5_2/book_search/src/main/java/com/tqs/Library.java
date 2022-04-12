@@ -27,7 +27,7 @@ public class Library {
 	public List<Book> findBooksByAuthor(final String author){
 		List<Book> result = new ArrayList<>();
 		for (Book book : store){
-			if (book.getAuthor() == author){
+			if (book.getAuthor().equals(author)){
 				result.add(book);
 			}
 		}
@@ -37,10 +37,21 @@ public class Library {
     public List<Book> findBooksByCategory(String category) {
         List<Book> result = new ArrayList<>();
 		for (Book book : store){
-			if (book.getCategory() == category){
+			if (book.getCategory().equals(category)){
 				result.add(book);
 			}
 		}
 		return result;
     }
+
+	public List<Book> findBooksByPrice(int price) {
+        List<Book> result = new ArrayList<>();
+		for (Book book : store){
+			if (book.getPrice() > price){
+				result.add(book);
+			}
+		}
+		return result;
+    }
+
 }

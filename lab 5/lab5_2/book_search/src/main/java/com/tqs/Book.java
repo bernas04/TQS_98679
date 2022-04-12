@@ -6,8 +6,14 @@ import java.util.Date;
 public class Book {
 	private final String title;
 	private String category;
-	private final String author;
-	private final Date published;
+	private String author="";
+	private Date published;
+    private int price;
+
+    public Book(String title, int price){
+        this.title=title;
+        this.price=price;
+    }
  
 
     public Book(String title, String author, Date published) {
@@ -16,12 +22,22 @@ public class Book {
         this.published = published;
     }
 
-    public Book(String title, String category ,String author, Date published) {
+    public Book(String category, String title ,String author, Date published) {
+        this.category = category;
         this.title = title;
         this.author = author;
         this.published = published;
-        this.category = category;
     }
+
+
+    public int getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
 
     public String getTitle() {
         return this.title;
