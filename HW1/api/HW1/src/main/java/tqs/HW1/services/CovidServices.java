@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,11 +89,13 @@ public class CovidServices {
         return new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate/importantData.length());
     }
 
+
+
     public CountryData getWorldInformation() throws IOException, InterruptedException{
-        log.info("> Get world data.");
         String date="", last_update="";
         long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
         double fatality_rate=0.000;
+        log.info("> Get world data.");
 
         HttpRequest request = HttpRequest.newBuilder()
 		.uri(URI.create("https://covid-19-statistics.p.rapidapi.com/reports/total"))
@@ -118,5 +121,42 @@ public class CovidServices {
         fatality_rate = importantData.getDouble("fatality_rate");
         
         return new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate/importantData.length());
+    }
+
+    public List<CountryData> get7DaysWorldInformation() throws IOException, InterruptedException{
+        LocalDate today = LocalDate.now();
+        List<CountryData> lastWeekInfo = new ArrayList<>();
+        String date="", last_update="";
+        long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
+        double fatality_rate=0.000;
+        log.info("> Get world 7 days data");
+
+        for (int i=-8; i< 0; i++){
+            String dayString = today.plusDays(i).toString();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://covid-19-statistics.p.rapidapi.com/reports/total?date="+ dayString))
+                    .header("X-RapidAPI-Host", "covid-19-statistics.p.rapidapi.com")
+                    .header("X-RapidAPI-Key", "110558e39emshd191bd4c6012a68p161673jsnffbcc68d9b98")
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            JSONObject jsonResponse = new JSONObject(response.body());
+            JSONObject importantData = jsonResponse.getJSONObject("data");
+
+            date = importantData.getString("date");
+            confirmed = importantData.getLong("confirmed");
+            deaths = importantData.getLong("deaths");
+            recovered = importantData.getLong("recovered");
+            confirmed_diff = importantData.getLong("confirmed_diff");
+            deaths_diff = importantData.getLong("deaths_diff");
+            recovered_diff = importantData.getLong("recovered_diff");
+            last_update = importantData.getString("last_update");
+            active = importantData.getLong("active");
+            active_diff = importantData.getLong("active_diff");
+            fatality_rate = importantData.getDouble("fatality_rate");
+            lastWeekInfo.add(new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate));
+        }
+        return lastWeekInfo;
     }
 }

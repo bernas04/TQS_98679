@@ -37,5 +37,10 @@ public class CovidController {
     public CountryData getWorldData() throws IOException, InterruptedException{
         return service.getWorldInformation();
     }
+
+    @GetMapping("/world7days")
+    public List<CountryData> get7DaysWorldInformation() throws IOException, InterruptedException{
+        return service.get7DaysWorldInformation();
+    }
     
 }
