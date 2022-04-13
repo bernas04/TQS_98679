@@ -7,7 +7,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -120,18 +123,20 @@ public class CovidServices {
         active_diff = importantData.getLong("active_diff");
         fatality_rate = importantData.getDouble("fatality_rate");
         
-        return new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate/importantData.length());
+        return new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate);
     }
 
-    public List<CountryData> get7DaysWorldInformation() throws IOException, InterruptedException{
+    public List<Integer> get7DaysWorldInformation() throws IOException, InterruptedException{
         LocalDate today = LocalDate.now();
-        List<CountryData> lastWeekInfo = new ArrayList<>();
-        String date="", last_update="";
-        long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
-        double fatality_rate=0.000;
-        log.info("> Get world 7 days data");
+        
+        List<Long> confirmed_diff= new ArrayList<>();
+        List<Long> deaths_diff= new ArrayList<>();
+        List<Double> fatality_diff= new ArrayList<>();
 
-        for (int i=-8; i< 0; i++){
+
+        log.info("> Get percentage diff data");
+
+        for (int i=-2; i< 0; i++){
             String dayString = today.plusDays(i).toString();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://covid-19-statistics.p.rapidapi.com/reports/total?date="+ dayString))
@@ -143,20 +148,27 @@ public class CovidServices {
 
             JSONObject jsonResponse = new JSONObject(response.body());
             JSONObject importantData = jsonResponse.getJSONObject("data");
-
-            date = importantData.getString("date");
-            confirmed = importantData.getLong("confirmed");
-            deaths = importantData.getLong("deaths");
-            recovered = importantData.getLong("recovered");
-            confirmed_diff = importantData.getLong("confirmed_diff");
-            deaths_diff = importantData.getLong("deaths_diff");
-            recovered_diff = importantData.getLong("recovered_diff");
-            last_update = importantData.getString("last_update");
-            active = importantData.getLong("active");
-            active_diff = importantData.getLong("active_diff");
-            fatality_rate = importantData.getDouble("fatality_rate");
-            lastWeekInfo.add(new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate));
+            confirmed_diff.add(importantData.getLong("confirmed_diff"));
+            deaths_diff.add(importantData.getLong("deaths_diff"));
+            fatality_diff.add(importantData.getDouble("fatality_rate"));
         }
-        return lastWeekInfo;
+        
+        Double d1 = (double) confirmed_diff.get(0);
+        Double d2 = (double) confirmed_diff.get(1);
+        Double confirmed_percentagem = ((d1-d2) / d1) * 100;
+        int percentage = (int) Math.rint(confirmed_percentagem);
+
+        Double d3 = (double) deaths_diff.get(0);
+        Double d4 = (double) deaths_diff.get(1);
+        Double deaths_percentagem = ((d3-d4) / d3) * 100;
+        int percentageDeaths = (int) Math.rint(deaths_percentagem);
+
+        Double d5 = (double) fatality_diff.get(0);
+        Double d6 = (double) fatality_diff.get(1);
+        Double dat_percentagem = ((d5-d6) / d5) * 100;
+        int percentageFatality = (int) Math.rint(dat_percentagem);
+
+        return Arrays.asList(percentage, percentageDeaths, percentageFatality);
+
     }
 }

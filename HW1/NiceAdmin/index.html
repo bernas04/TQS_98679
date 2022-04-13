@@ -258,7 +258,7 @@
 
 
                 <div class="card-body">
-                  <h5 class="card-title">Total Cases <span>| Today</span></h5>
+                  <h5 class="card-title">New Cases <span>| Today</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -266,7 +266,7 @@
                     </div>
                     <div class="ps-3">
                       <h6 id="totalCases"></h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <span id="confirmedPercentage"></span> <span id="incDecConf" class="text-muted small pt-2 ps-1"></span>
                     </div>
                   </div>
                 </div>
@@ -280,7 +280,7 @@
 
 
                 <div class="card-body">
-                  <h5 class="card-title">Deaths <span>| Today</span></h5>
+                  <h5 class="card-title">New Deaths <span>| Today</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -288,7 +288,7 @@
                     </div>
                     <div class="ps-3">
                       <h6 id="totalDeaths"></h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <span id="deathsPercentage"></span> <span id="incDecDeaths" class="text-muted small pt-2 ps-1"></span>
 
                     </div>
                   </div>
@@ -311,7 +311,7 @@
                     </div>
                     <div class="ps-3">
                       <h6 id="fatality_rate"></h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                      <span id="fatPercentagem"></span><span id="incDecFat" class="text-muted small pt-2 ps-1">decrease</span>
 
                     </div>
                   </div>
@@ -321,23 +321,35 @@
 
             </div><!-- End Customers Card -->
 
-            <!-- Reports -->
-            <div class="col-12">
+
+            
+            <div class="col-lg-12">
+    
               <div class="card">
-
-
                 <div class="card-body">
-                  <h5 class="card-title">Information <span>/This week</span></h5>
+                  <h5 class="card-title">Search for a Country<span>/Today</span></h5>
+    
+                  <!-- General Form Elements -->
+                  <form>
+    
+                    <div class="row mb-4">
+                        <label class="col-sm-2 col-form-label">Country</label>
+                        <div class="col-lg-8">
+                          <select class="form-select" id="selectCountry" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                          </select>
+                        </div>
+                        <div id="reportsChart"></div>
+                    </div>
+  
 
-                  <!-- Line Chart -->
-                  <div id="reportsChart"></div>
-
-                  <!-- End Line Chart -->
-
+    
+                  </form><!-- End General Form Elements -->
+    
                 </div>
-
               </div>
-            </div><!-- End Reports -->
+    
+            </div>
 
             <!-- Recent Sales -->
             <div class="col-12">

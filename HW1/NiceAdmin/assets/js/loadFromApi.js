@@ -1,79 +1,21 @@
 $(document).ready(function () {
-    load_graphic();
     loadWorldData();
+    loadCountrys();
 
-    
+    $("#selectCountry").change(function (e) {
+        var iso = $("#selectCountry option:selected").val();
+        $("#countryIso").val(iso);
+    });
 });
 
-function load_graphic(){
 
-    $.get("http://localhost:8080/api/world7days", function(data, status){
-        var active= [];
-        var deaths = [];
-        var recovery = [];
-        var datas = [];
-        
-        for (var i=0;i <data.length;i++){
-            active.push(data[i].active);
-            deaths.push(data[i].deaths);
-            recovery.push(data[i].recovered);
-            datas.push(data[i].date);
+function loadCountrys(){
+    $.get("http://localhost:8080/api/regions", function(data, status){
+        for (var i=0; i< data.length; i++){
+            $("#selectCountry").append(new Option(data[i].country, data[i].iso))
         }
-
-        
-
-        new ApexCharts(document.querySelector("#reportsChart"), {
-            series: [{
-            name: 'Total Cases',
-            data: active
-            }, {
-            name: 'Total deaths',
-            data: deaths
-            }, {
-            name: 'Recovery',
-            data: recovery
-            }],
-            chart: {
-            height: 350,
-            type: 'area',
-            toolbar: {
-                show: false
-            },
-            },
-            markers: {
-            size: 4
-            },
-            colors: ['#4154f1', '#2eca6a', '#ff771d'],
-            fill: {
-            type: "gradient",
-            gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.3,
-                opacityTo: 0.4,
-                stops: [0, 90, 100]
-            }
-            },
-            dataLabels: {
-            enabled: false
-            },
-            stroke: {
-            curve: 'smooth',
-            width: 2
-            },
-            xaxis: {
-            type: 'datetime',
-            categories: datas
-            },
-            tooltip: {
-            x: {
-                format: 'yyyy/MM/dd'
-            },
-            }
-        }).render();
     });
-
 }
-
 
 function loadWorldData(){
     let date, last_update, confirmed, deaths, recovered, confimed_diff, deaths_diff, recovered_diff, active_diff, fatality_rate;
@@ -84,14 +26,49 @@ function loadWorldData(){
         confirmed = data.confirmed;
         deaths = data.deaths;
         recovered = data.recovered;
-        confimed_diff = data.confimed_diff;
+        confimed_diff = data.confirmed_diff;
         deaths_diff = data.deaths_diff;
         recovered_diff = data.recovered_diff;
         active_diff = data.active_diff;
         fatality_rate = data.fatality_rate;
-        document.getElementById("totalCases").innerHTML = confirmed ;
-        document.getElementById("totalDeaths").innerHTML = deaths;
+        document.getElementById("totalCases").innerHTML = confimed_diff ;
+        document.getElementById("totalDeaths").innerHTML = deaths_diff;
         document.getElementById("fatality_rate").innerHTML = fatality_rate.toFixed(4);
+    });
+
+    $.get("http://localhost:8080/api/percentages", function(data, status){
+        console.log(data[0], data[1])
+        if (data[0]>0){
+            $('#confirmedPercentage').text(data[0]+"%");
+            $('#confirmedPercentage').addClass('text-success small pt-1 fw-bold');
+            $('#incDecConf').text("increase");
+
+        }   
+        else{
+            $('#confirmedPercentage').text(-data[0]+"%");
+            $('#confirmedPercentage').addClass('text-danger small pt-1 fw-bold');
+            $('#incDecConf').text("decrease");
+        } 
+        if (data[1]>0){
+            $('#deathsPercentage').text(data[1]+"%");
+            $('#deathsPercentage').addClass('text-success small pt-1 fw-bold');
+            $('#incDecDeaths').text("increase");
+        }   
+        else{
+            $('#deathsPercentage').text(-data[1]+"%");
+            $('#deathsPercentage').addClass('text-danger small pt-1 fw-bold');
+            $('#incDecDeaths').text("decrease");
+        } 
+        if (data[2]>0){
+            $('#fatPercentagem').text(data[2]+"%");
+            $('#fatPercentagem').addClass('text-success small pt-1 fw-bold');
+            $('#incDecFat').text("increase");
+        }   
+        else{
+            $('#fatPercentagem').text(-data[2]+"%");
+            $('#fatPercentagem').addClass('text-danger small pt-1 fw-bold');
+            $('#incDecFat').text("decrease");
+        } 
     });
 
 }
