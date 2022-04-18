@@ -56,6 +56,7 @@ public class CovidServices {
             JSONObject eachElement = importantData.getJSONObject(i);
             iso_country.add(new Regions(eachElement.getString("iso"), eachElement.getString("name")));
         }
+        
         return iso_country;
     }
 
@@ -66,7 +67,7 @@ public class CovidServices {
         double fatality_rate=0.000;
         
         HttpRequest request = HttpRequest.newBuilder()
-		.uri(URI.create(URI_API+"/reports?iso="+iso+"&date=2022-04-07"))
+		.uri(URI.create(URI_API+"/reports?iso="+iso))
 		.header("X-RapidAPI-Host", API_HOST)
 		.header("X-RapidAPI-Key", API_KEY)
 		.method("GET", HttpRequest.BodyPublishers.noBody())

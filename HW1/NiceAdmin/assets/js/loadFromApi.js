@@ -2,11 +2,9 @@ $(document).ready(function () {
     loadWorldData();
     loadCountrys();
 
-    $("#selectCountry").change(function (e) {
-        var iso = $("#selectCountry option:selected").val();
-        $("#countryIso").val(iso);
-    });
 });
+
+
 
 
 function loadCountrys(){
@@ -31,8 +29,8 @@ function loadWorldData(){
         recovered_diff = data.recovered_diff;
         active_diff = data.active_diff;
         fatality_rate = data.fatality_rate;
-        document.getElementById("totalCases").innerHTML = confimed_diff ;
-        document.getElementById("totalDeaths").innerHTML = deaths_diff;
+        document.getElementById("totalCases").innerHTML = confirmed ;
+        document.getElementById("totalDeaths").innerHTML = deaths;
         document.getElementById("fatality_rate").innerHTML = fatality_rate.toFixed(4);
     });
 
@@ -41,33 +39,33 @@ function loadWorldData(){
         if (data[0]>0){
             $('#confirmedPercentage').text(data[0]+"%");
             $('#confirmedPercentage').addClass('text-success small pt-1 fw-bold');
-            $('#incDecConf').text("increase");
+            $('#incDecConf').text("increase since the last update");
 
         }   
         else{
             $('#confirmedPercentage').text(-data[0]+"%");
             $('#confirmedPercentage').addClass('text-danger small pt-1 fw-bold');
-            $('#incDecConf').text("decrease");
+            $('#incDecConf').text("decrease since the last update");
         } 
         if (data[1]>0){
             $('#deathsPercentage').text(data[1]+"%");
             $('#deathsPercentage').addClass('text-success small pt-1 fw-bold');
-            $('#incDecDeaths').text("increase");
+            $('#incDecDeaths').text("increase since the last update");
         }   
         else{
             $('#deathsPercentage').text(-data[1]+"%");
             $('#deathsPercentage').addClass('text-danger small pt-1 fw-bold');
-            $('#incDecDeaths').text("decrease");
+            $('#incDecDeaths').text("decrease since the last update");
         } 
         if (data[2]>0){
             $('#fatPercentagem').text(data[2]+"%");
             $('#fatPercentagem').addClass('text-success small pt-1 fw-bold');
-            $('#incDecFat').text("increase");
+            $('#incDecFat').text("increase since the last update");
         }   
         else{
             $('#fatPercentagem').text(-data[2]+"%");
             $('#fatPercentagem').addClass('text-danger small pt-1 fw-bold');
-            $('#incDecFat').text("decrease");
+            $('#incDecFat').text("decrease since the last update");
         } 
     });
 

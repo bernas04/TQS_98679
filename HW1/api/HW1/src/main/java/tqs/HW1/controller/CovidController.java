@@ -1,6 +1,8 @@
 package tqs.HW1.controller;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,9 @@ public class CovidController {
 
     @GetMapping("/regions")
     public List<Regions> getAllRegions() throws IOException, InterruptedException{
-        return service.getAllRegions();
+        List <Regions> allRegions = service.getAllRegions();
+        Collections.sort(allRegions);
+        return allRegions;
     }
 
     @GetMapping("/region")

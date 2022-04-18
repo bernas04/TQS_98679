@@ -1,6 +1,6 @@
 package tqs.HW1.model;
 
-public class Regions {
+public class Regions implements Comparable<Regions>{
     private String iso, country;
 
 
@@ -25,6 +25,14 @@ public class Regions {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+
+
+    @Override
+    public int compareTo(Regions o) {
+        // TODO Auto-generated method stub
+        return this.getCountry().compareTo(o.getCountry());
     }
 
 }
