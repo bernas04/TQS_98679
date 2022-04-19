@@ -27,12 +27,19 @@ public class Regions implements Comparable<Regions>{
         this.country = country;
     }
 
+    @Override
+    public int compareTo(Regions o) {
+        return this.getCountry().compareTo(o.getCountry());
+    }
 
 
     @Override
-    public int compareTo(Regions o) {
-        // TODO Auto-generated method stub
-        return this.getCountry().compareTo(o.getCountry());
+    public String toString() {
+        return "{" +
+            " iso='" + getIso() + "'" +
+            ", country='" + getCountry() + "'" +
+            "}";
     }
+
 
 }

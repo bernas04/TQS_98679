@@ -1,7 +1,6 @@
 $(document).ready(function () {
     loadWorldData();
     loadCountrys();
-
 });
 
 
@@ -31,6 +30,12 @@ function loadWorldData(){
         fatality_rate = data.fatality_rate;
         document.getElementById("totalCases").innerHTML = confirmed ;
         document.getElementById("totalDeaths").innerHTML = deaths;
+        document.getElementById("newCases").innerHTML = confimed_diff;
+        document.getElementById("newDeaths").innerHTML = deaths_diff;
+        document.getElementById("recovered_diff").innerHTML = recovered_diff;
+
+
+
         document.getElementById("fatality_rate").innerHTML = fatality_rate.toFixed(4);
     });
 

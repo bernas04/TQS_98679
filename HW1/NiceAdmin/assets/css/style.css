@@ -239,7 +239,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-img-overlay {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(202, 53, 53, 0.6);
 }
 
 /* Alerts */
@@ -718,12 +718,18 @@ h1, h2, h3, h4, h5, h6 {
   background: #f6f6fe;
 }
 .dashboard .revenue-card .card-icon {
-  color: #2eca6a;
-  background: #e0f8e9;
+  color: #6e3434;
+  background: #e0bbbb;
 }
+
+.dashboard .recovered-card .card-icon{
+  color: #11ce00;
+  background: #e1f7e1;
+}
+
 .dashboard .customers-card .card-icon {
-  color: #ff771d;
-  background: #ffecdf;
+  color: #0e0101;
+  background: #bdbdbd;
 }
 
 /* Activity */
@@ -887,18 +893,18 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.3s;
 }
 .profile .profile-card .social-links a:hover {
-  color: #012970;
+  color: #a79c04;
 }
 .profile .profile-overview .row {
   margin-bottom: 20px;
   font-size: 15px;
 }
 .profile .profile-overview .card-title {
-  color: #012970;
+  color: #9fac2f;
 }
 .profile .profile-overview .label {
   font-weight: 600;
-  color: rgba(1, 41, 112, 0.6);
+  color: rgba(178, 194, 37, 0.6);
 }
 .profile .profile-edit label {
   font-weight: 600;

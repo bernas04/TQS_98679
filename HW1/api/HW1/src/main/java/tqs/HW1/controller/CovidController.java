@@ -25,10 +25,12 @@ public class CovidController {
     @Autowired
     private CovidServices service;
 
+
     @GetMapping("/regions")
     public List<Regions> getAllRegions() throws IOException, InterruptedException{
         List <Regions> allRegions = service.getAllRegions();
         Collections.sort(allRegions);
+
         return allRegions;
     }
 
