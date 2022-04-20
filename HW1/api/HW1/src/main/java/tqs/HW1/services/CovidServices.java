@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import tqs.HW1.cache.Cache;
 import tqs.HW1.model.CountryData;
 import tqs.HW1.model.Regions;
+import tqs.HW1.request.Request;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,14 +29,7 @@ import org.slf4j.LoggerFactory;
 @Service
 public class CovidServices {
 
-    @Value("${api.host}")
-    private String API_HOST;
-
-    @Value("${api.url}")
-    private String URI_API;
-    
-    @Value("${api.key}")
-    private String API_KEY;
+    private Request r = new Request();
 
     private final long CACHE_TIME = 90000;
     
@@ -60,13 +54,9 @@ public class CovidServices {
         }
 
         log.info("[API] Get all Countries and ISO Codes.");
-        HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(URI_API + "/regions"))
-        .header("X-RapidAPI-Host", API_HOST)
-        .header("X-RapidAPI-Key", API_KEY)
-        .method("GET", HttpRequest.BodyPublishers.noBody())
-        .build();
-        String response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString()).body();
+        
+        String response = r.request("/regions");
+
         JSONObject jsonResponse = new JSONObject(response);
         JSONArray importantData = jsonResponse.getJSONArray("data");
         
@@ -78,7 +68,6 @@ public class CovidServices {
             iso_country.add(r);
         }
         c.push("regions", iso_country);
-        
         
         
         return iso_country;
@@ -104,14 +93,10 @@ public class CovidServices {
             String date="", last_update="";
             long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
             double fatality_rate=0.000;
-            HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(URI_API+"/reports?iso="+iso+"&date="+now.plusMonths(i)))
-            .header("X-RapidAPI-Host", API_HOST) 
-            .header("X-RapidAPI-Key", API_KEY)
-            .method("GET", HttpRequest.BodyPublishers.noBody())
-            .build();
-            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            JSONObject jsonResponse = new JSONObject(response.body());
+
+            String response = r.request("/reports?iso="+iso+"&date="+now.plusMonths(i));
+
+            JSONObject jsonResponse = new JSONObject(response);
             JSONArray importantData = jsonResponse.getJSONArray("data");
             for (int j = 0; j<importantData.length();j++){
                 JSONObject eachJson = importantData.getJSONObject(j);
@@ -151,14 +136,9 @@ public class CovidServices {
         }
 
         log.info("[API] Getting "+iso+" data.");
-        HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(URI_API+"/reports?iso="+iso))
-        .header("X-RapidAPI-Host", API_HOST) 
-        .header("X-RapidAPI-Key", API_KEY)
-        .method("GET", HttpRequest.BodyPublishers.noBody())
-        .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject jsonResponse = new JSONObject(response.body());
+        
+        String response = r.request("/reports?iso="+iso);
+        JSONObject jsonResponse = new JSONObject(response);
         JSONArray importantData = jsonResponse.getJSONArray("data");
         
         for (int i = 0; i<importantData.length();i++){
@@ -200,15 +180,9 @@ public class CovidServices {
         double fatality_rate=0.000;
         log.info("[API] Get world data.");
 
-        HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("https://covid-19-statistics.p.rapidapi.com/reports/total"))
-        .header("X-RapidAPI-Host", "covid-19-statistics.p.rapidapi.com")
-        .header("X-RapidAPI-Key", "110558e39emshd191bd4c6012a68p161673jsnffbcc68d9b98")
-        .method("GET", HttpRequest.BodyPublishers.noBody())
-        .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        String response = r.request("/reports/total");
 
-        JSONObject jsonResponse = new JSONObject(response.body());
+        JSONObject jsonResponse = new JSONObject(response);
         JSONObject importantData = jsonResponse.getJSONObject("data");
 
         date = importantData.getString("date");
@@ -251,15 +225,9 @@ public class CovidServices {
 
         for (int i=-2; i< 0; i++){
             String dayString = today.plusDays(i).toString();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://covid-19-statistics.p.rapidapi.com/reports/total?date="+ dayString))
-                    .header("X-RapidAPI-Host", "covid-19-statistics.p.rapidapi.com")
-                    .header("X-RapidAPI-Key", "110558e39emshd191bd4c6012a68p161673jsnffbcc68d9b98")
-                    .method("GET", HttpRequest.BodyPublishers.noBody())
-                    .build();
-            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            String response = r.request("/reports/total?date="+ dayString);
 
-            JSONObject jsonResponse = new JSONObject(response.body());
+            JSONObject jsonResponse = new JSONObject(response);
             JSONObject importantData = jsonResponse.getJSONObject("data");
             confirmed_diff.add(importantData.getLong("confirmed_diff"));
             deaths_diff.add(importantData.getLong("deaths_diff"));
