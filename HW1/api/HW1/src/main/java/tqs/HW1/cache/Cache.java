@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class Cache {
     
-    private int requests, misses, hits;
+    private int requests, misses, hits = 0;
     private Map<String, Object> cache = new HashMap<>();
     private Map<String, Long> timeForEachKey = new HashMap<>();
 
-    private long start, livingTime, stopTime;
+    private long livingTime;
 
 
     public Cache(long livingTime){
@@ -24,13 +24,15 @@ public class Cache {
     }
 
     public Object get(String key){
+        this.requests++;
         if (cache.containsKey(key) && System.currentTimeMillis() <= timeForEachKey.get(key)){
+            this.hits++;
             return cache.get(key);
         }
         else if(cache.containsKey(key) && System.currentTimeMillis() > timeForEachKey.get(key)){
             clear(key);
         }
-        
+        this.misses++;
         return null;
         
     }
@@ -44,18 +46,7 @@ public class Cache {
         return false;
     }
 
-
-
-
     // GETTERS AND SETTERS
-
-    public long getStopTime(){
-        return this.stopTime;
-    }
-
-    public void setStopTime(long newST){
-        this.stopTime = newST;
-    }
 
     public long getLivingTime() {
         return this.livingTime;
@@ -69,33 +60,23 @@ public class Cache {
         return this.requests;
     }
 
-    public void setRequests(int requests) {
-        this.requests = requests;
-    }
 
     public int getMisses() {
         return this.misses;
     }
 
-    public void setMisses(int misses) {
-        this.misses = misses;
-    }
-
+   
     public int getHits() {
         return this.hits;
     }
 
-    public void setHits(int hits) {
-        this.hits = hits;
-    }
 
-
-    public long getStart() {
-        return this.start;
-    }
-
-    public void setStart(long start) {
-        this.start = start;
+    @Override
+    public String toString() {
+        return "{requests: " + getRequests() +
+            ", misses: " + getMisses() + 
+            ", hits: " + getHits() + 
+            "}";
     }
 
 }

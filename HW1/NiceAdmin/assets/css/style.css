@@ -601,7 +601,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   color: #4154f1;
   transition: 0.3;
-  background: #f6f9ff;
+  background: #ffffff;
   padding: 10px 15px;
   border-radius: 4px;
 }
@@ -619,7 +619,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .sidebar-nav .nav-link:hover {
   color: #4154f1;
-  background: #f6f9ff;
+  background: #7181a1;
 }
 .sidebar-nav .nav-link:hover i {
   color: #4154f1;
@@ -656,7 +656,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #4154f1;
 }
 .sidebar-nav .nav-content a.active i {
-  background-color: #4154f1;
+  background-color: #fcfcfc;
 }
 
 /*--------------------------------------------------------------
@@ -725,6 +725,16 @@ h1, h2, h3, h4, h5, h6 {
 .dashboard .recovered-card .card-icon{
   color: #11ce00;
   background: #e1f7e1;
+}
+
+.dashboard .hits-card .card-icon{
+  color: #11ce00;
+  background: #e1f7e1;
+}
+
+.dashboard .misses-card .card-icon{
+  color: #c92020;
+  background: #ebbbbb;
 }
 
 .dashboard .customers-card .card-icon {

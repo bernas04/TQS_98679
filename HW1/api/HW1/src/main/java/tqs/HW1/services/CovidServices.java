@@ -8,7 +8,9 @@ import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,12 +37,13 @@ public class CovidServices {
     @Value("${api.key}")
     private String API_KEY;
 
-    private final long CACHE_TIME = 5000;
+    private final long CACHE_TIME = 90000;
     
-    private Cache c = new Cache(CACHE_TIME); // 90 segundos
+    private Cache c = new Cache(CACHE_TIME); 
 
     private CountryData informationByIso, worldInformation;
     private List<Integer> percentageInfo;
+    private List<CountryData> fiveMonthsBeforeCountry = new ArrayList<>();
     private List<Regions> iso_country = new ArrayList<>();
     
     private static final Logger log = LoggerFactory.getLogger(CovidServices.class);
@@ -81,6 +84,59 @@ public class CovidServices {
         return iso_country;
         
     }
+
+    public List<CountryData> getLastFiveMonthsData(String iso) throws IOException, InterruptedException{
+        LocalDate now = LocalDate.now();
+        
+
+        Object tmp = c.get("last5Months"+iso);
+
+        if (tmp!=null){
+            fiveMonthsBeforeCountry = (List<CountryData>) tmp;
+            log.info("[CACHE] Getting "+iso+" last 5 months data.");
+            return fiveMonthsBeforeCountry;
+        }
+
+
+        log.info("[API] Getting "+iso+" last 5 months data.");
+        fiveMonthsBeforeCountry.clear();
+        for (int i=-5; i<0; i++){
+            String date="", last_update="";
+            long confirmed =0, deaths =0, recovered=0, confirmed_diff=0, deaths_diff=0, recovered_diff=0, active=0, active_diff=0;
+            double fatality_rate=0.000;
+            HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(URI_API+"/reports?iso="+iso+"&date="+now.plusMonths(i)))
+            .header("X-RapidAPI-Host", API_HOST) 
+            .header("X-RapidAPI-Key", API_KEY)
+            .method("GET", HttpRequest.BodyPublishers.noBody())
+            .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            JSONObject jsonResponse = new JSONObject(response.body());
+            JSONArray importantData = jsonResponse.getJSONArray("data");
+            System.out.println(importantData.length());
+            for (int j = 0; j<importantData.length();j++){
+                JSONObject eachJson = importantData.getJSONObject(j);
+                date = eachJson.getString("date");
+                confirmed += eachJson.getLong("confirmed");
+                deaths += eachJson.getLong("deaths");
+                recovered += eachJson.getLong("recovered");
+                confirmed_diff += eachJson.getLong("confirmed_diff");
+                deaths_diff += eachJson.getLong("deaths_diff");
+                recovered_diff += eachJson.getLong("recovered_diff");
+                last_update = eachJson.getString("last_update");
+                active += eachJson.getLong("active");
+                active_diff += eachJson.getLong("active_diff");
+                fatality_rate += eachJson.getDouble("fatality_rate");
+            }
+            fiveMonthsBeforeCountry.add(new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate/importantData.length()));
+        }
+
+        c.push("last5Months"+iso, fiveMonthsBeforeCountry);
+        
+        return fiveMonthsBeforeCountry;
+
+    }
+
 
     public CountryData getInformationByIso(String iso) throws IOException, InterruptedException{
         String date="", last_update="";
@@ -174,7 +230,7 @@ public class CovidServices {
         
     }
 
-    public List<Integer> get7DaysWorldInformation() throws IOException, InterruptedException{
+    public List<Integer> getPercentageInfo() throws IOException, InterruptedException{
         
         Object tmp = c.get("percentageInfo");
 
@@ -230,5 +286,14 @@ public class CovidServices {
         c.push("percentageInfo", percentageInfo);
     
         return percentageInfo;
+    }
+
+    public Map<String,Integer> getCacheInfo(){
+        Map<String,Integer> cacheInfo = new HashMap<>();
+        cacheInfo.put("hits", c.getHits());
+        cacheInfo.put("misses", c.getMisses());
+        cacheInfo.put("requests", c.getRequests());
+
+        return cacheInfo;
     }
 }

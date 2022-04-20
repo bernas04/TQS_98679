@@ -2,8 +2,8 @@ package tqs.HW1.controller;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,6 +39,13 @@ public class CovidController {
         return service.getInformationByIso(iso);
     }
 
+    @GetMapping("/historic")
+    public List<CountryData> getLastSixMonthsInfo(@RequestParam(value = "iso") String iso) throws IOException, InterruptedException{
+        List<CountryData> ret = service.getLastFiveMonthsData(iso);
+        ret.add(service.getInformationByIso(iso));
+        return ret;
+    }
+
     @GetMapping("/world")
     public CountryData getWorldData() throws IOException, InterruptedException{
         return service.getWorldInformation();
@@ -46,7 +53,12 @@ public class CovidController {
 
     @GetMapping("/percentages")
     public List<Integer> get7DaysWorldInformation() throws IOException, InterruptedException{
-        return service.get7DaysWorldInformation();
+        return service.getPercentageInfo();
+    }
+
+    @GetMapping("/cache")
+    public Map<String,Integer> getCacheInfo(){
+        return service.getCacheInfo();
     }
     
 }

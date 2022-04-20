@@ -40,7 +40,6 @@ function loadWorldData(){
     });
 
     $.get("http://localhost:8080/api/percentages", function(data, status){
-        console.log(data[0], data[1])
         if (data[0]>0){
             $('#confirmedPercentage').text(data[0]+"%");
             $('#confirmedPercentage').addClass('text-success small pt-1 fw-bold');
