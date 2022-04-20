@@ -1,5 +1,7 @@
 package tqs.HW1.cache;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +46,24 @@ public class Cache {
             return true;
         }
         return false;
+    }
+
+    public void clearAll(){
+        cache.clear();
+    }
+
+    public int getSize(){
+        List<String> keysToRemove = new ArrayList<>();
+
+        for (String key : cache.keySet()){
+            if(System.currentTimeMillis() > timeForEachKey.get(key)){
+                keysToRemove.add(key);
+            }
+        }
+        for (String e : keysToRemove)
+            clear(e);
+
+        return cache.size();
     }
 
     // GETTERS AND SETTERS

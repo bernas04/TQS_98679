@@ -113,7 +113,6 @@ public class CovidServices {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             JSONObject jsonResponse = new JSONObject(response.body());
             JSONArray importantData = jsonResponse.getJSONArray("data");
-            System.out.println(importantData.length());
             for (int j = 0; j<importantData.length();j++){
                 JSONObject eachJson = importantData.getJSONObject(j);
                 date = eachJson.getString("date");
