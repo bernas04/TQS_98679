@@ -25,9 +25,9 @@ public class RegionsTest {
     @Test
     public void testFormat(){
         assertEquals(regionsList.size(), 3);
-        assertEquals(regionsList.get(0).getCountry(), "Portugal");
-        assertEquals(regionsList.get(1).getCountry(), "United States of America");
-        assertEquals(regionsList.get(2).getCountry(), "French");
+        assertEquals(regionsList.get(0).getName(), "Portugal");
+        assertEquals(regionsList.get(1).getName(), "United States of America");
+        assertEquals(regionsList.get(2).getName(), "French");
 
         assertEquals(regionsList.get(0).getIso(), "PRT");
         assertEquals(regionsList.get(1).getIso(), "USA");
@@ -37,7 +37,7 @@ public class RegionsTest {
     @DisplayName("Test toString")
     @Test
     public void testToString(){
-        assertEquals(regionsList.get(0).toString(), "{ iso='PRT', country='Portugal'}");
+        assertEquals(regionsList.get(0).toString(), "{ iso='PRT', name='Portugal'}");
     }
 
     @DisplayName("Test CompareTo")

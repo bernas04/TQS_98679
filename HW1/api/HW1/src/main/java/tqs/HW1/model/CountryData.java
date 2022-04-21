@@ -111,4 +111,23 @@ public class CountryData {
         this.fatality_rate = fatality_rate;
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+            " date='" + getDate() + "'" +
+            ", last_update='" + getLast_update() + "'" +
+            ", confirmed='" + getConfirmed() + "'" +
+            ", deaths='" + getDeaths() + "'" +
+            ", recovered='" + getRecovered() + "'" +
+            ", confirmed_diff='" + getConfirmed_diff() + "'" +
+            ", deaths_diff='" + getDeaths_diff() + "'" +
+            ", recovered_diff='" + getRecovered_diff() + "'" +
+            ", active='" + getActive() + "'" +
+            ", active_diff='" + getActive_diff() + "'" +
+            ", fatality_rate='" + getFatality_rate() + "'" +
+            "}";
+    }
+
+
 }

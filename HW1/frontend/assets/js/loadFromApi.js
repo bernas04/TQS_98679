@@ -9,7 +9,7 @@ $(document).ready(function () {
 function loadCountrys(){
     $.get("http://localhost:8080/api/regions", function(data, status){
         for (var i=0; i< data.length; i++){
-            $("#selectCountry").append(new Option(data[i].country, data[i].iso))
+            $("#selectCountry").append(new Option(data[i].name, data[i].iso))
         }
     });
 }

@@ -1,12 +1,12 @@
 package tqs.HW1.model;
 
 public class Regions implements Comparable<Regions>{
-    private String iso, country;
+    private String iso, name;
 
 
-    public Regions(String iso, String country) {
+    public Regions(String iso, String name) {
         this.iso = iso;
-        this.country = country;
+        this.name = name;
     }
 
 
@@ -19,17 +19,17 @@ public class Regions implements Comparable<Regions>{
         this.iso = iso;
     }
 
-    public String getCountry() {
-        return this.country;
+    public String getName() {
+        return this.name;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setname(String name) {
+        this.name = name;
     }
 
     @Override
     public int compareTo(Regions o) {
-        return this.getCountry().compareTo(o.getCountry());
+        return this.getName().compareTo(o.getName());
     }
 
 
@@ -37,7 +37,7 @@ public class Regions implements Comparable<Regions>{
     public String toString() {
         return "{" +
             " iso='" + getIso() + "'" +
-            ", country='" + getCountry() + "'" +
+            ", name='" + getName() + "'" +
             "}";
     }
 

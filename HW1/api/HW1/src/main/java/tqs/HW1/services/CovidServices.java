@@ -97,7 +97,9 @@ public class CovidServices {
             String response = r.request("/reports?iso="+iso+"&date="+now.plusMonths(i));
 
             JSONObject jsonResponse = new JSONObject(response);
+            
             JSONArray importantData = jsonResponse.getJSONArray("data");
+
             for (int j = 0; j<importantData.length();j++){
                 JSONObject eachJson = importantData.getJSONObject(j);
                 date = eachJson.getString("date");
@@ -112,9 +114,9 @@ public class CovidServices {
                 active_diff += eachJson.getLong("active_diff");
                 fatality_rate += eachJson.getDouble("fatality_rate");
             }
-            fiveMonthsBeforeCountry.add(new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate/importantData.length()));
+            CountryData cd = new CountryData(date, confirmed, deaths, recovered, confirmed_diff, deaths_diff, recovered_diff, last_update, active, active_diff, fatality_rate/importantData.length());
+            fiveMonthsBeforeCountry.add(cd);
         }
-
         c.push("last5Months"+iso, fiveMonthsBeforeCountry);
         
         return fiveMonthsBeforeCountry;
