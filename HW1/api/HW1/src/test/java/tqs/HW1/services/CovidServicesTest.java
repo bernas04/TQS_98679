@@ -4,18 +4,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.mockito.Mockito.lenient;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.assertj.core.util.Arrays;
+import org.mockito.Mockito;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.JsonObject;
+
+import org.assertj.core.util.Arrays;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import tqs.HW1.cache.Cache;
 import tqs.HW1.model.CountryData;
@@ -96,16 +103,38 @@ public class CovidServicesTest {
     }
 
     @Test
-    public void testGetPercentageInfo() throws IOException, InterruptedException {
-        int [] percentage = {17,-30,1};
-        List<Integer> p = new ArrayList<>();
-        
-        for (int i=0; i< percentage.length; i++){
-            p.add(percentage[i]);
-        }
-        lenient().when(r.request(Mockito.anyString())).thenReturn("["+percentage[0]+", "+percentage[1]+", "+percentage[2]+"]");
-        assertEquals(covidServices.getPercentageInfo().toString(), p.toString());
-        
+    public void testGetPercentageInfo() throws IOException, InterruptedException, JSONException {
+        List<Integer> p1 = new ArrayList<>();
+        p1.add(17);
+        p1.add(-30);
+        p1.add(1);
+
+
+        String s1 = "{'data': {'confirmed_diff':"+p1.get(0)+", 'deaths_diff':"+p1.get(1)+", 'fatality_rate' : "+p1.get(2)+"}}";
+        lenient().when(r.request(Mockito.anyString())).thenReturn(s1);
+
+
+        List<Integer> retList = new ArrayList<>();
+        retList.add((p1.get(0)-p1.get(0))/p1.get(0) * 100); // vai dar sempre 0
+        retList.add((p1.get(1)-p1.get(1))/p1.get(1) * 100); // vai dar sempre 0
+        retList.add((p1.get(2)-p1.get(2))/p1.get(2) * 100); // vai dar sempre 0
+
+
+        assertEquals(covidServices.getPercentageInfo(), retList);
+    }
+
+    @Test
+    public void testGetCacheInfo() throws IOException, InterruptedException{
+    
+
+        String cache_stats = "{hits=0, misses=0, requests=0}";
+    
+        lenient().when( c.toString() ).thenReturn( cache_stats );
+
+        String info = covidServices.getCacheInfo().toString();
+
+        assertEquals(cache_stats, info);
+        assertEquals(c.getRequestsHitsMisses(), 0);
 
     }
 }

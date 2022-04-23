@@ -90,6 +90,21 @@ public class Cache {
         return this.hits;
     }
 
+    public int getRequestsHitsMisses(){
+        return this.hits+this.misses+this.requests;
+    }
+
+    public void setRequests(int requests) {
+        this.requests = requests;
+    }
+    public void setMisses(int misses) {
+        this.misses = misses;
+    }
+    public void setHits(int hits) {
+        this.hits = hits;
+    }
+
+
 
     @Override
     public String toString() {
