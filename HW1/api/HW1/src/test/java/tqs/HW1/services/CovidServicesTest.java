@@ -13,15 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.google.gson.JsonObject;
-
-import org.assertj.core.util.Arrays;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 
 import tqs.HW1.cache.Cache;

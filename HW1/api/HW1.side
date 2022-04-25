@@ -1,0 +1,229 @@
+{
+  "id": "7e3a906f-36df-49d3-bd6e-afe786a87860",
+  "version": "2.0",
+  "name": "HW1 TQS",
+  "url": "http://127.0.0.1:8000",
+  "tests": [{
+    "id": "e3ac9d6c-9b03-4428-a024-1ee12c312d68",
+    "name": "HW1 ",
+    "commands": [{
+      "id": "567f7137-6771-4466-9452-368f52c111cd",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "80f37f8d-3ab7-4c6d-aa27-205cb8a8ea97",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1053",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a4fab70-cb6a-4082-8531-fecdd9e1effd",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Covid-19 Info",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f221203-63d8-4b7d-b56a-2d9ac1bc2ad9",
+      "comment": "",
+      "command": "click",
+      "target": "id=selectCountry",
+      "targets": [
+        ["id=selectCountry", "id"],
+        ["css=#selectCountry", "css:finder"],
+        ["xpath=//select[@id='selectCountry']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div/div[2]/div[4]/div/div/form/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3536b9c0-9468-4872-82e9-b0f2ae22a5f8",
+      "comment": "",
+      "command": "select",
+      "target": "id=selectCountry",
+      "targets": [],
+      "value": "label=Antigua and Barbuda"
+    }, {
+      "id": "4bd51eb0-362b-4640-9af0-5b8db0db33c1",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,484)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cfc209a6-cc42-45ab-ae0d-275f55811008",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,721)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "041de989-7dca-474d-9064-22d6887c6fed",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(1) > canvas",
+      "targets": [
+        ["css=div:nth-child(1) > canvas", "css:finder"],
+        ["xpath=//div[@id='trafficChart']/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8bed2e43-4615-4967-8615-309908583f45",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(1) > canvas",
+      "targets": [
+        ["css=div:nth-child(1) > canvas", "css:finder"],
+        ["xpath=//div[@id='trafficChart']/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf2108b4-bb6c-498f-8a15-ee2d789dd0c0",
+      "comment": "",
+      "command": "click",
+      "target": "id=selectCountry",
+      "targets": [
+        ["id=selectCountry", "id"],
+        ["css=#selectCountry", "css:finder"],
+        ["xpath=//select[@id='selectCountry']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div/div[2]/div[4]/div/div/form/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d7cd2f5-9141-4c71-a7ee-fc42514b3414",
+      "comment": "",
+      "command": "select",
+      "target": "id=selectCountry",
+      "targets": [],
+      "value": "label=Portugal"
+    }, {
+      "id": "0e425a1f-fdbf-440f-9900-518dbb83992f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Cache",
+      "targets": [
+        ["linkText=Cache", "linkText"],
+        ["css=.nav-item:nth-child(2) > .nav-link", "css:finder"],
+        ["xpath=//ul[@id='sidebar-nav']/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'cache.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Cache')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bed6aac6-9c5b-4b40-9106-d0e9e8ba0ae4",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Cache Details",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7200e59b-3833-4025-83b2-5f2e9e68af96",
+      "comment": "",
+      "command": "click",
+      "target": "id=pieChart",
+      "targets": [
+        ["id=pieChart", "id"],
+        ["css=#pieChart", "css:finder"],
+        ["xpath=//canvas[@id='pieChart']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div[2]/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "11064d87-2e29-413e-967c-d1b18e48ba47",
+      "comment": "",
+      "command": "click",
+      "target": "id=pieChart",
+      "targets": [
+        ["id=pieChart", "id"],
+        ["css=#pieChart", "css:finder"],
+        ["xpath=//canvas[@id='pieChart']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div[2]/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "48a771a1-b125-4c62-9f2f-cb613a07de9b",
+      "comment": "",
+      "command": "click",
+      "target": "id=pieChart",
+      "targets": [
+        ["id=pieChart", "id"],
+        ["css=#pieChart", "css:finder"],
+        ["xpath=//canvas[@id='pieChart']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div[2]/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7e5b2db1-8e4a-4ca4-9ca1-2add9e928734",
+      "comment": "",
+      "command": "click",
+      "target": "id=pieChart",
+      "targets": [
+        ["id=pieChart", "id"],
+        ["css=#pieChart", "css:finder"],
+        ["xpath=//canvas[@id='pieChart']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div[2]/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "074b3a21-524f-485d-b417-bf7bcab5bca9",
+      "comment": "",
+      "command": "click",
+      "target": "id=pieChart",
+      "targets": [
+        ["id=pieChart", "id"],
+        ["css=#pieChart", "css:finder"],
+        ["xpath=//canvas[@id='pieChart']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div[2]/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6b8fd41-63da-435d-82fb-3add073d18f2",
+      "comment": "",
+      "command": "click",
+      "target": "id=pieChart",
+      "targets": [
+        ["id=pieChart", "id"],
+        ["css=#pieChart", "css:finder"],
+        ["xpath=//canvas[@id='pieChart']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/div[2]/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dbc2f684-6217-4c7b-8f2e-3fd356e6110e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.d-none",
+      "targets": [
+        ["css=.d-none", "css:finder"],
+        ["xpath=//header[@id='header']/div/a/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Covinfo-19')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "fe1f1ab6-8eda-48fe-bfec-b8c4da3c4f0e",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["e3ac9d6c-9b03-4428-a024-1ee12c312d68"]
+  }],
+  "urls": ["http://127.0.0.1:8000/"],
+  "plugins": []
+}
