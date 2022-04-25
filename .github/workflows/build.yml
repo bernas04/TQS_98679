@@ -22,9 +22,5 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: set up api
-      run: cd /HW1/api/HW1/ && ./mvnw spring-boot:run
-    - name: set up frontend
-      run: cd ../../frontend && php -S localhost:8000
     - name: Build with Maven
       run: mvn -B package --file HW1/api/HW1/pom.xml
