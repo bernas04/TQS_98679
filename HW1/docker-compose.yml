@@ -1,0 +1,16 @@
+services:
+    frontend:
+        build: ./frontend
+        ports: 
+            - 8000:8000
+        container_name: frontend
+        restart: always
+        depends_on:
+            - api
+
+    api:
+        build: ./api/HW1
+        ports:
+            - 8080:8080
+        container_name: api
+        restart: always
