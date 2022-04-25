@@ -158,9 +158,11 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.1.2</version>
+			<version>3.141.59</version>
 			<scope>test</scope>
 		</dependency>
+
+		
 
 	</dependencies>
 
