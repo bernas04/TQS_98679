@@ -25,7 +25,7 @@ public class FrontendSteps {
 
     @When("I select {string} in the country select")
     public void selectCountry(String country) throws InterruptedException{
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         Select dropdown = new Select(wd.findElement(By.id("selectCountry")));
         dropdown.selectByVisibleText(country);
     }
@@ -33,7 +33,7 @@ public class FrontendSteps {
     @Then("I should see the recent and 6 months before covid details about {string}")
     public void checkDetails(String country) throws InterruptedException{
         String title = "Last 6 Months Info about " +country;
-        Thread.sleep(3000);
+        Thread.sleep(7000);
         assertEquals(wd.findElement(By.id("sixMonthsTitle")).getText(), title);
         wd.quit();
     }
