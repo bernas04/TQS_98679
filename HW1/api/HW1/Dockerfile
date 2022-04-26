@@ -1,9 +1,9 @@
-FROM openjdk:11
+FROM maven:3.8.1-adoptopenjdk-11
 
-ARG JAR_FILE=target/*.jar
+WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY . /app/
 
-EXPOSE 8080
+RUN mvn -DskipTests clean package
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app/target/air-quality-service-0.0.1-SNAPSHOT.jar"]
