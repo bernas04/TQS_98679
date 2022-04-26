@@ -23,6 +23,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Set docker-compose up
-      run: docker-compose -f HW1/docker-compose.yml up
+      run: docker-compose -f HW1/docker-compose.yml up -d
     - name: Build with Maven
       run: mvn -B package --file HW1/api/HW1/pom.xml
