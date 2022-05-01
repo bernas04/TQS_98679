@@ -35,5 +35,6 @@ cd api/HW1/
 mvn clean test
 ```
 
+The api documentation is present [here](https://documenter.getpostman.com/view/18307740/UyrGCExg)
 
 TQS 2022
